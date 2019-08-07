@@ -52,6 +52,85 @@
     </repository>
   </repositories>
     
+  <profiles>
+    <profile>
+      <id>publish</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.akathist.maven.plugins.launch4j</groupId>
+            <artifactId>launch4j-maven-plugin</artifactId>
+            <version>1.7.25</version>
+            <executions>
+              <execution>
+                <id>l4j-clui</id>
+                <phase>install</phase>
+                <goals>
+                  <goal>launch4j</goal>
+                </goals>
+                <configuration>
+                  <headerType>gui</headerType>
+                  <outfile>${project.build.directory}/briss-2.0.exe</outfile>
+                  <downloadUrl>http://www.oracle.com/technetwork/java/javase/downloads</downloadUrl>
+                  <classPath>
+                    <mainClass>at.laborg.briss.Briss</mainClass>
+                    <preCp>anything</preCp>
+                  </classPath>
+                  <!--<icon>logo.ico</icon>-->
+                  <outfile>${project.build.directory}/briss-2.0_WINDOWS.exe</outfile>
+                  <jre>
+                    <minVersion>1.8.0</minVersion>
+                    <jdkPreference>preferJre</jdkPreference>
+                  </jre>
+                  <versionInfo>
+                    <fileVersion>1.0.0.0</fileVersion>
+                    <txtFileVersion>${project.version}</txtFileVersion>
+                    <fileDescription>Briss 2.0</fileDescription>
+                    <copyright>2010 Gerhard Aigner</copyright>
+                    <productVersion>1.0.0.0</productVersion>
+                    <txtProductVersion>${project.version}</txtProductVersion>
+                    <productName>${project.name}</productName>
+                    <companyName>igormaznitsa.com</companyName>
+                    <internalName>${project.name}</internalName>
+                    <originalFilename>briss-2.0.exe</originalFilename>
+                  </versionInfo>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>sh.tak.appbundler</groupId>
+            <artifactId>appbundle-maven-plugin</artifactId>
+            <version>1.2.0</version>
+            <configuration>
+              <bundleName>${app.name}</bundleName>
+              <diskImageFile>${project.build.directory}/briss2.0_OSX.dmg</diskImageFile>
+              <mainClass>at.laborg.briss.Briss</mainClass>
+              <!--<iconFile>logo.icns</iconFile>-->
+              <bundleName>Briss2</bundleName>
+              <generateDiskImageFile>true</generateDiskImageFile>
+              <includeApplicationsSymlink>true</includeApplicationsSymlink>
+              <diskImageInternetEnable>true</diskImageInternetEnable>
+              <jvmVersion>1.8+</jvmVersion>
+              <jvmOptions>
+                <option>-XX:+IgnoreUnrecognizedVMOptions</option>
+                <option>-XaddExports:java.desktop/com.apple.eawt=ALL-UNNAMED</option>
+              </jvmOptions>
+            </configuration>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>bundle</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>   
+    
   <build>
     <plugins>
       <plugin>
