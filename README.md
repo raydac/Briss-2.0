@@ -17,20 +17,6 @@ Cropping view:
 ![Image of BRISS 2.0 Cropping View](img/croppingView.png)
 
 
-## Build instructions
-
-### Prerequisites
-Make sure you have JDK 8 installed as currently only this JDK version is supported.
-
-### Build
-To build, run the following command:
-
-```
-./gradlew distZip
-```
-
-You can find the built version in `build/distributions`
-
 # Briss 0.9 Notes
 
 ## BRISS - BRight Snippet Sire 
@@ -106,10 +92,3 @@ by cutting pages in half.
 * Select a Rectangle with ctrl + mouse click. Then copy (ctrl-c) and paste it into another cluster.
 * Use hotcorners to make a crop rectangle smaller or bigger
 
-# Dev instructions
-
-Run the application with the following command:
-
-```
-./gradlew run
-```
