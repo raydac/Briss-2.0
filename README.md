@@ -39,17 +39,15 @@ should be cropped by creating a overlay of similar pages (=>all pages within a p
 
 ## Starting the application
 You can run the application by executing following command in terminal:
-
 ```
-.\bin\Briss-2.0.bat
+java -jar briss-2.0-SNAPSHOT.jar
 ```
 or
 ```
-.\bin\Briss-2.0.bat cropthis.pdf
+java -jar briss-2.0-SNAPSHOT.jar cropthis.pdf
 ```
-
-(The second line comes in handy if you want shortlinks for pdf editing) 
-
+(The second line comes in handy if you want shortlinks for pdf editing)    
+[Also there are some prebuilt wrapped images for Windows and OSX.](https://github.com/raydac/Briss-2.0/releases/tag/2.0-SNAPSHOT)
 
 ## Commandline
 
@@ -57,18 +55,18 @@ If you prefer command line and trust the basic automatic detection algorithm
 use it this way (can be batched!):
 
 ```
-.\bin\Briss-2.0.bat -s [SOURCEFILE] [-d [DESTINATIONFILE]]
+java -jar briss-2.0-SNAPSHOT.jar -s [SOURCEFILE] [-d [DESTINATIONFILE]]
 ```
 Example:
 ```
-.\bin\Briss-2.0.bat -s dogeatdog.pdf -d dogcrop.pdf
-.\bin\Briss-2.0.bat -s dogeatdog.pdf
+java -jar briss-2.0-SNAPSHOT.jar -s dogeatdog.pdf -d dogcrop.pdf
+java -jar briss-2.0-SNAPSHOT.jar -s dogeatdog.pdf
 ```
 the second line will create the cropped pdf into dogeatdog_cropped.pdf
 
 To split according to columns/rows, respectively use the `--split-col` and `--split-row` arguments. For example:
 ```
-.\bin\Briss-2.0.bat -s dogeatdog.pdf -d dogcrop.pdf --split-col
+java -jar briss-2.0-SNAPSHOT.jar -s dogeatdog.pdf -d dogcrop.pdf --split-col
 ```
 
 Splitting columns will try to split the pdf into two columns. Splitting rows will try to split the pdf into two parts
