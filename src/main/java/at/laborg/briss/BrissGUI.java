@@ -102,10 +102,7 @@ public class BrissGUI extends JFrame implements PropertyChangeListener, Componen
         if (fileArg.exists() && fileArg.getAbsolutePath().trim().endsWith(".pdf")) { //$NON-NLS-1$
             try {
                 importNewPdfFile(fileArg);
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(this, e.getMessage(),
-                        Messages.getString("BrissGUI.brissError"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
-            } catch (PdfException e) {
+            } catch (IOException | PdfException e) {
                 JOptionPane.showMessageDialog(this, e.getMessage(),
                         Messages.getString("BrissGUI.brissError"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
             }
@@ -236,7 +233,7 @@ public class BrissGUI extends JFrame implements PropertyChangeListener, Componen
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (UnsupportedLookAndFeelException ex) {
             System.out.println(Messages.getString("BrissGUI.lookAndFeelError")); //$NON-NLS-1$
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ignored) {
         }
     }
 
@@ -246,8 +243,7 @@ public class BrissGUI extends JFrame implements PropertyChangeListener, Componen
     }
 
     private ImageIcon loadDragAndDropLabelImage() {
-        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource(RES_DROP_IMG_PATH));
-        return icon;
+        return new ImageIcon(getClass().getClassLoader().getResource(RES_DROP_IMG_PATH));
     }
 
     private static PageExcludes getExcludedPages() {
@@ -263,8 +259,7 @@ public class BrissGUI extends JFrame implements PropertyChangeListener, Componen
                 return null;
 
             try {
-                PageExcludes pageExcludes = new PageExcludes(PageNumberParser.parsePageNumber(input));
-                return pageExcludes;
+                return new PageExcludes(PageNumberParser.parsePageNumber(input));
             } catch (ParseException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(),
                         Messages.getString("BrissGUI.inputError"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
@@ -347,8 +342,7 @@ public class BrissGUI extends JFrame implements PropertyChangeListener, Componen
         File tmpCropFileDestination = File.createTempFile("briss", ".pdf"); //$NON-NLS-1$ //$NON-NLS-2$
         CropDefinition cropDefinition = CropDefinition.createCropDefinition(workingSet.getSourceFile(),
                 tmpCropFileDestination, workingSet.getClusterDefinition());
-        File result = DocumentCropper.crop(cropDefinition);
-        return result;
+        return DocumentCropper.crop(cropDefinition);
     }
 
     private void setIdleState() {
@@ -479,7 +473,7 @@ public class BrissGUI extends JFrame implements PropertyChangeListener, Componen
         if ((maxWidth >= 0) && (maxHeight >= 0)) {
             maxWidth = Math.round(25.4f * maxWidth / 72f);
             maxHeight = Math.round(25.4f * maxHeight / 72f);
-            defInput = Integer.toString(maxWidth) + " " + Integer.toString(maxHeight); //$NON-NLS-1$
+            defInput = maxWidth + " " + maxHeight; //$NON-NLS-1$
         }
 
         // get user input
@@ -493,8 +487,8 @@ public class BrissGUI extends JFrame implements PropertyChangeListener, Componen
         if (dims.length != 2)
             return;
 
-        int w = -1;
-        int h = -1;
+        int w;
+        int h;
         try {
             w = Integer.parseInt(dims[0]);
             h = Integer.parseInt(dims[1]);
@@ -534,7 +528,7 @@ public class BrissGUI extends JFrame implements PropertyChangeListener, Componen
         if ((minX < Integer.MAX_VALUE) && (minY < Integer.MAX_VALUE)) {
             minX = Math.round(25.4f * minX / 72f);
             minY = Math.round(25.4f * minY / 72f);
-            defInput = Integer.toString(minX) + " " + Integer.toString(minY); //$NON-NLS-1$
+            defInput = minX + " " + minY; //$NON-NLS-1$
         }
 
         // get user input
@@ -548,8 +542,8 @@ public class BrissGUI extends JFrame implements PropertyChangeListener, Componen
         if (dims.length != 2)
             return;
 
-        int x = -1;
-        int y = -1;
+        int x;
+        int y;
         try {
             x = Integer.parseInt(dims[0]);
             y = Integer.parseInt(dims[1]);
@@ -585,7 +579,7 @@ public class BrissGUI extends JFrame implements PropertyChangeListener, Componen
         updateWorkingSet(newClusters, newPageExcludes, newSource);
 
         previewPanel.removeAll();
-        mergedPanels = new ArrayList<MergedPanel>();
+        mergedPanels = new ArrayList<>();
 
         for (PageCluster cluster : workingSet.getClusterDefinition().getClusterList()) {
             MergedPanel p = new MergedPanel(cluster, this);
@@ -667,7 +661,7 @@ public class BrissGUI extends JFrame implements PropertyChangeListener, Componen
                 setProgress(percent);
                 try {
                     Thread.sleep(50);
-                } catch (InterruptedException e) {
+                } catch (InterruptedException ignored) {
                 }
             }
 

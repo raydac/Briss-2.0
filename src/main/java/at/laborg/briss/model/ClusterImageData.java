@@ -39,7 +39,7 @@ public class ClusterImageData {
 	}
 
 	private void initializeOutputImage(final BufferedImage imageToAdd) {
-		outputImageHeight = imageToAdd.getHeight() > MAX_PAGE_HEIGHT ? MAX_PAGE_HEIGHT : imageToAdd.getHeight();
+		outputImageHeight = Math.min(imageToAdd.getHeight(), MAX_PAGE_HEIGHT);
 		float scaleFactor = (float) outputImageHeight / imageToAdd.getHeight();
 		outputImageWidth = (int) (imageToAdd.getWidth() * scaleFactor);
 		imgdata = new short[outputImageWidth][outputImageHeight][totalImages];

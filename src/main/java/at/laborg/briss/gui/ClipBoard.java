@@ -6,7 +6,7 @@ import java.util.List;
 public final class ClipBoard {
 
 	private static ClipBoard instance;
-	private final List<DrawableCropRect> cropRectsClipBoard = new ArrayList<DrawableCropRect>();
+	private final List<DrawableCropRect> cropRectsClipBoard = new ArrayList<>();
 
 	private ClipBoard() {
 	}

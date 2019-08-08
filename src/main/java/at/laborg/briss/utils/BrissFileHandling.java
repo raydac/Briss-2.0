@@ -6,9 +6,9 @@ import java.io.IOException;
 public final class BrissFileHandling {
 
 	private BrissFileHandling() {
-	};
+	}
 
-	private static final String RECOMMENDED_ENDING = "_cropped.pdf";
+  private static final String RECOMMENDED_ENDING = "_cropped.pdf";
 
 	public static File getRecommendedDestination(final File sourceFile) {
 		// create file recommendation

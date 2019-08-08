@@ -7,9 +7,9 @@ import com.itextpdf.text.Rectangle;
 public final class RectangleHandler {
 
 	private RectangleHandler() {
-	};
+	}
 
-	public static Rectangle calculateScaledRectangle(final List<Rectangle> boxes, final Float[] ratios, final int rotation) {
+  public static Rectangle calculateScaledRectangle(final List<Rectangle> boxes, final Float[] ratios, final int rotation) {
 		if (ratios == null || boxes.size() == 0)
 			return null;
 		Rectangle smallestBox = null;

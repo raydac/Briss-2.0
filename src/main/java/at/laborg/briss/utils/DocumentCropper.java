@@ -48,7 +48,7 @@ import com.itextpdf.text.pdf.SimpleNamedDestination;
 public final class DocumentCropper {
 
 	private DocumentCropper() {
-	};
+	}
 
 	public static File crop(final CropDefinition cropDefinition) throws IOException, DocumentException, CropException {
 
@@ -82,7 +82,7 @@ public final class DocumentCropper {
 		PdfSmartCopy pdfCopy = new PdfSmartCopy(document, new FileOutputStream(resultFile));
 		document.open();
 
-		Map<Integer, List<String>> pageNrToDestinations = new HashMap<Integer, List<String>>();
+		Map<Integer, List<String>> pageNrToDestinations = new HashMap<>();
 		for (String single : map.keySet()) {
 			StringTokenizer st = new StringTokenizer(map.get(single), " ");
 			if (st.hasMoreElements()) {
@@ -90,7 +90,7 @@ public final class DocumentCropper {
 				int pageNr = Integer.parseInt(pageNrString);
 				List<String> singleList = (pageNrToDestinations.get(pageNr));
 				if (singleList == null) {
-					singleList = new ArrayList<String>();
+					singleList = new ArrayList<>();
 					singleList.add(single);
 					pageNrToDestinations.put(pageNr, singleList);
 				} else {
@@ -148,7 +148,7 @@ public final class DocumentCropper {
 
 				pageDict = reader.getPageN(newPageNumber);
 
-				List<Rectangle> boxes = new ArrayList<Rectangle>();
+				List<Rectangle> boxes = new ArrayList<>();
 				boxes.add(reader.getBoxSize(newPageNumber, "media"));
 				boxes.add(reader.getBoxSize(newPageNumber, "crop"));
 				int rotation = reader.getPageRotation(newPageNumber);

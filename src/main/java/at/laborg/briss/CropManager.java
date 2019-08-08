@@ -18,7 +18,6 @@
 package at.laborg.briss;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -100,7 +99,7 @@ public class CropManager {
 		return resultFile;
 	}
 
-	private static void cropMultipliedFile(File source, CropJob cropJob) throws FileNotFoundException, DocumentException,
+	private static void cropMultipliedFile(File source, CropJob cropJob) throws DocumentException,
 			IOException {
 
 		PdfReader reader = new PdfReader(source.getAbsolutePath());
@@ -122,7 +121,7 @@ public class CropManager {
 
 				pageDict = reader.getPageN(newPageNumber);
 
-				List<Rectangle> boxes = new ArrayList<Rectangle>();
+				List<Rectangle> boxes = new ArrayList<>();
 				boxes.add(reader.getBoxSize(newPageNumber, "media"));
 				boxes.add(reader.getBoxSize(newPageNumber, "crop"));
 				int rotation = reader.getPageRotation(newPageNumber);

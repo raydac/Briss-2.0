@@ -28,9 +28,9 @@ public class PageCluster implements Comparable<PageCluster> {
 
 	private List<Integer> pagesToMerge;
 	private final List<Integer> allPages;
-	private final List<Float[]> cropRatiosList = new ArrayList<Float[]>();
+	private final List<Float[]> cropRatiosList = new ArrayList<>();
 
-	private boolean excluded = false;
+	private boolean excluded;
 
 	private ClusterImageData imageData;
 
@@ -45,8 +45,8 @@ public class PageCluster implements Comparable<PageCluster> {
 		this.pageHeight = pageHeight;
 		this.evenPage = isEvenPage;
 		this.excluded = excluded;
-		this.pagesToMerge = new ArrayList<Integer>();
-		this.allPages = new ArrayList<Integer>();
+		this.pagesToMerge = new ArrayList<>();
+		this.allPages = new ArrayList<>();
 		this.allPages.add(pageNumber);
 	}
 
@@ -89,9 +89,7 @@ public class PageCluster implements Comparable<PageCluster> {
 			return false;
 		if (getRoundedPageHeight() != other.getRoundedPageHeight())
 			return false;
-		if (getRoundedPageWidth() != other.getRoundedPageWidth())
-			return false;
-		return true;
+		return getRoundedPageWidth() == other.getRoundedPageWidth();
 	}
 
 	public final void mergeClusters(final PageCluster other) {

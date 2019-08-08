@@ -80,7 +80,7 @@
                   <outfile>${project.build.directory}/briss-2.0_WINDOWS.exe</outfile>
                   <jre>
                     <minVersion>1.8.0</minVersion>
-                    <jdkPreference>preferJre</jdkPreference>
+                    <jdkPreference>preferJdk</jdkPreference>
                   </jre>
                   <versionInfo>
                     <fileVersion>1.0.0.0</fileVersion>
@@ -103,7 +103,7 @@
             <artifactId>appbundle-maven-plugin</artifactId>
             <version>1.2.0</version>
             <configuration>
-              <bundleName>${app.name}</bundleName>
+              <bundleName>briss-2.0</bundleName>
               <diskImageFile>${project.build.directory}/briss2.0_OSX.dmg</diskImageFile>
               <mainClass>at.laborg.briss.Briss</mainClass>
               <!--<iconFile>logo.icns</iconFile>-->

@@ -40,9 +40,7 @@ final class BrissTransferHandler extends TransferHandler {
 
 	@Override
 	public boolean canImport(final TransferSupport support) {
-		if (!support.isDataFlavorSupported(DataFlavor.stringFlavor))
-			return false;
-		return true;
+		return support.isDataFlavorSupported(DataFlavor.stringFlavor);
 
 	}
 
@@ -82,14 +80,11 @@ final class BrissTransferHandler extends TransferHandler {
 				}
 			}
 
-		} catch (UnsupportedFlavorException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (UnsupportedFlavorException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return true;
+      return true;
 	}
 }

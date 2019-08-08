@@ -45,22 +45,20 @@ public final class CropDefinition {
 		if (!source.exists())
 			throw new IllegalArgumentException("Source(" + source.getAbsolutePath() + ") file doesn't exist");
 
-		HashMap<Integer, List<Float[]>> pagesToCrops = new HashMap<Integer, List<Float[]>>();
+		HashMap<Integer, List<Float[]>> pagesToCrops = new HashMap<>();
 
 		for (PageCluster cluster : clusters.getClusterList()) {
 			for (Integer pageNumber : cluster.getAllPages()) {
 				List<Float[]> cropRectangles = pagesToCrops.get(pageNumber);
 				if (cropRectangles == null) {
-					cropRectangles = new ArrayList<Float[]>();
+					cropRectangles = new ArrayList<>();
 				}
 				cropRectangles.addAll(cluster.getRatiosList());
 				pagesToCrops.put(pageNumber, cropRectangles);
 			}
 		}
 
-		CropDefinition result = new CropDefinition(source, destination, pagesToCrops);
-
-		return result;
+		return new CropDefinition(source, destination, pagesToCrops);
 	}
 
 	public File getSourceFile() {
@@ -72,10 +70,7 @@ public final class CropDefinition {
 	}
 
 	public List<Float[]> getRectanglesForPage(final Integer page) {
-		if (pageToCropRectangles.containsKey(page))
-			return pageToCropRectangles.get(page);
-		else
-			return Collections.emptyList();
+		return pageToCropRectangles.getOrDefault(page, Collections.emptyList());
 	}
 
 }

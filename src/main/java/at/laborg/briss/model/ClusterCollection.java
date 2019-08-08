@@ -29,12 +29,12 @@ public class ClusterCollection {
 
 	public ClusterCollection() {
 		this.dirty = true;
-		this.pageToClustersMapping = new HashMap<Integer, SingleCluster>();
-		this.clusterToPagesMapping = new HashMap<SingleCluster, List<Integer>>();
+		this.pageToClustersMapping = new HashMap<>();
+		this.clusterToPagesMapping = new HashMap<>();
 	}
 
 	private <T extends Comparable<? super T>> List<T> asSortedList(Collection<T> c) {
-		List<T> list = new ArrayList<T>(c);
+		List<T> list = new ArrayList<>(c);
 		java.util.Collections.sort(list);
 		return list;
 	}
@@ -67,7 +67,7 @@ public class ClusterCollection {
 
 		} else {
 			// new Cluster
-			List<Integer> pageNumbers = new ArrayList<Integer>();
+			List<Integer> pageNumbers = new ArrayList<>();
 			pageNumbers.add(pageNumber);
 			getClusterToPagesMapping().put(tmpCluster, pageNumbers);
 		}

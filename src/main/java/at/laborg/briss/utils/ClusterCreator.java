@@ -30,7 +30,7 @@ import com.itextpdf.text.pdf.PdfReader;
 
 public final class ClusterCreator {
 	private ClusterCreator() {
-	};
+	}
 
 	public static ClusterDefinition clusterPages(final File source, final PageExcludes pageExcludes) throws IOException {
 		PdfReader reader = new PdfReader(source.getAbsolutePath());

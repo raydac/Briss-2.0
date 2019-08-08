@@ -6,7 +6,6 @@ import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 public final class SplitFinder {
@@ -16,7 +15,7 @@ public final class SplitFinder {
     private final static float ROW_OVERLAP_RATIO = 0.01f;
 
     private SplitFinder() {
-    };
+    }
 
     private static Float getSplitRatio(final BufferedImage image, int axis) {
         WritableRaster raster = image.getRaster();

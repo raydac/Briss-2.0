@@ -5,9 +5,9 @@ import java.awt.image.WritableRaster;
 public class ImageFinderUtil {
 
     private ImageFinderUtil() {
-    };
+    }
 
-    private static final double RATIO_LOOK_AHEAD_SATISFY = 0.85;
+  private static final double RATIO_LOOK_AHEAD_SATISFY = 0.85;
     private static final int LOOK_AHEAD_PIXEL_NR = 30;
     private static final int SD_CALC_SIZE_NR = 5;
     private static final float SD_THRESHOLD_TO_BE_COUNTED = 0.2f;
@@ -59,14 +59,6 @@ public class ImageFinderUtil {
 
         switch (orientation) {
             case ORIENTATION_TOP:
-                for (int i = 0; i < sds.length - LOOK_AHEAD_PIXEL_NR; i++) {
-                    int cnt = diffCounter(sds, i, i + LOOK_AHEAD_PIXEL_NR);
-                    if (cnt > RATIO_LOOK_AHEAD_SATISFY * LOOK_AHEAD_PIXEL_NR) {
-                        position = i;
-                        break;
-                    }
-                }
-                break;
             case ORIENTATION_LEFT:
                 for (int i = 0; i < sds.length - LOOK_AHEAD_PIXEL_NR; i++) {
                     int cnt = diffCounter(sds, i, i + LOOK_AHEAD_PIXEL_NR);
@@ -77,16 +69,8 @@ public class ImageFinderUtil {
                 }
                 break;
             case ORIENTATION_BOTTOM:
-                for (int i = sds.length - 1; i >= 0 + LOOK_AHEAD_PIXEL_NR; i--) {
-                    int cnt = diffCounter(sds, i - LOOK_AHEAD_PIXEL_NR, i);
-                    if (cnt > RATIO_LOOK_AHEAD_SATISFY * LOOK_AHEAD_PIXEL_NR) {
-                        position = i;
-                        break;
-                    }
-                }
-                break;
             case ORIENTATION_RIGHT:
-                for (int i = sds.length - 1; i >= 0 + LOOK_AHEAD_PIXEL_NR; i--) {
+                for (int i = sds.length - 1; i >= LOOK_AHEAD_PIXEL_NR; i--) {
                     int cnt = diffCounter(sds, i - LOOK_AHEAD_PIXEL_NR, i);
                     if (cnt > RATIO_LOOK_AHEAD_SATISFY * LOOK_AHEAD_PIXEL_NR) {
                         position = i;
@@ -139,7 +123,7 @@ public class ImageFinderUtil {
 
     public static double sd(final double[] values) {
         // get mean
-        double mean = 0;
+        double mean;
         double sum = 0;
         for (double value : values) {
             sum += value;

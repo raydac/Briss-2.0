@@ -35,7 +35,7 @@ public class HelpDialog extends JDialog {
 		super(owner, title, modalityType);
 		setBounds(232, 232, 500, 800);
 
-		String helpText = "";
+		String helpText;
 
 		InputStream is = getClass().getResourceAsStream(HELP_FILE_PATH);
 		byte[] buf = new byte[1024 * 100];

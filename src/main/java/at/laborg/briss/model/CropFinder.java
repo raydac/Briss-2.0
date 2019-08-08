@@ -1,14 +1,12 @@
 package at.laborg.briss.model;
 
-import com.sun.media.jai.util.ImageUtil;
-
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 
 public final class CropFinder {
 
 	private CropFinder() {
-	};
+	}
 
 	public static Float[] getAutoCropFloats(final BufferedImage image) {
 

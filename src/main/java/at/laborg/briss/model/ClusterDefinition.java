@@ -22,7 +22,7 @@ import java.util.List;
 
 public class ClusterDefinition {
 
-	private final List<PageCluster> clusters = new ArrayList<PageCluster>();
+	private final List<PageCluster> clusters = new ArrayList<>();
 
 	public final PageCluster getSingleCluster(final int pageNumber) {
 		for (PageCluster cluster : clusters) {

@@ -73,7 +73,7 @@ public class MergedPanel extends JPanel {
 
 	private final PageCluster cluster;
 
-	private final List<DrawableCropRect> crops = new ArrayList<DrawableCropRect>();
+	private final List<DrawableCropRect> crops = new ArrayList<>();
 	private final BufferedImage img;
 
 	private enum ActionState {
@@ -118,10 +118,10 @@ public class MergedPanel extends JPanel {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<html>");
 		sb.append(cluster.isEvenPage() ? "Even " : "Odd ").append("page<br>");
-		sb.append(cluster.getAllPages().size() + " pages: ");
+		sb.append(cluster.getAllPages().size()).append(" pages: ");
 		int pagecounter = 0;
 		for (Integer pageNumber : cluster.getAllPages()) {
-			sb.append(pageNumber + " ");
+			sb.append(pageNumber).append(" ");
 			if (pagecounter++ > 10) {
 				pagecounter = 0;
 				sb.append("<br>");
@@ -176,13 +176,13 @@ public class MergedPanel extends JPanel {
 		g2.setColor(Color.BLACK);
 
 		g2.setStroke(SELECTED_STROKE);
-		g2.drawRect(crop.x + SELECT_BORDER_WIDTH / 2, crop.y + SELECT_BORDER_WIDTH / 2, crop.width - SELECT_BORDER_WIDTH,
+		g2.drawRect(crop.x, crop.y, crop.width - SELECT_BORDER_WIDTH,
 				crop.height - SELECT_BORDER_WIDTH);
 
 		// display crop size in milimeters
 		int w = Math.round(25.4f * crop.width / 72f);
 		int h = Math.round(25.4f * crop.height / 72f);
-		String size = Integer.toString(w) + "x" + Integer.toString(h);
+		String size = w + "x" + h;
 		g2.setFont(scaleFont(size, crop));
 		g2.setColor(Color.YELLOW);
 		g2.setComposite(SMOOTH_SELECT);
@@ -197,7 +197,6 @@ public class MergedPanel extends JPanel {
 			}
 		}
 		repaint();
-		return;
 	}
 
 	public int getWidestSelectedRect() {
@@ -411,9 +410,7 @@ public class MergedPanel extends JPanel {
 
 		for (DrawableCropRect crop : crops) {
 			if (crop.isSelected()) {
-				for (DrawableCropRect splitCrop : SplitFinder.splitColumn(img, crop)) {
-					cropsCopy.add(splitCrop);
-				}
+				cropsCopy.addAll(SplitFinder.splitColumn(img, crop));
 			} else {
 				cropsCopy.add(crop);
 			}
@@ -429,9 +426,7 @@ public class MergedPanel extends JPanel {
 
 		for (DrawableCropRect crop : crops) {
 			if (crop.isSelected()) {
-				for (DrawableCropRect splitCrop : SplitFinder.splitRow(img, crop)) {
-					cropsCopy.add(splitCrop);
-				}
+				cropsCopy.addAll(SplitFinder.splitRow(img, crop));
 			} else {
 				cropsCopy.add(crop);
 			}
@@ -475,7 +470,7 @@ public class MergedPanel extends JPanel {
 	}
 
 	private void deleteAllSelected() {
-		List<DrawableCropRect> removeList = new ArrayList<DrawableCropRect>();
+		List<DrawableCropRect> removeList = new ArrayList<>();
 		for (DrawableCropRect crop : crops) {
 			if (crop.isSelected()) {
 				removeList.add(crop);
@@ -508,7 +503,7 @@ public class MergedPanel extends JPanel {
 
 	private void removeToSmallCrops() {
 		// throw away all crops which are to small
-		List<Rectangle> cropsToTrash = new ArrayList<Rectangle>();
+		List<Rectangle> cropsToTrash = new ArrayList<>();
 		for (Rectangle crop : crops) {
 			if (crop.getWidth() < 2 * DrawableCropRect.CORNER_DIMENSION
 					|| crop.getHeight() < 2 * DrawableCropRect.CORNER_DIMENSION) {
@@ -616,9 +611,9 @@ public class MergedPanel extends JPanel {
 				if (cropStartPoint == null) {
 					cropStartPoint = curPoint;
 				}
-				curCrop.x = (curPoint.x < cropStartPoint.x) ? curPoint.x : cropStartPoint.x;
+				curCrop.x = Math.min(curPoint.x, cropStartPoint.x);
 				curCrop.width = Math.abs(curPoint.x - cropStartPoint.x);
-				curCrop.y = (curPoint.y < cropStartPoint.y) ? curPoint.y : cropStartPoint.y;
+				curCrop.y = Math.min(curPoint.y, cropStartPoint.y);
 				curCrop.height = Math.abs(curPoint.y - cropStartPoint.y);
 				break;
 			case MOVE_CROP:
@@ -764,6 +759,7 @@ public class MergedPanel extends JPanel {
 				for (DrawableCropRect crop : crops) {
 					if (crop.isSelected()) {
 						cropRectIsSelected = true;
+						break;
 					}
 				}
 				JMenuItem splitColumns = new JMenuItem(SPLIT_INTO_COLUMNS);

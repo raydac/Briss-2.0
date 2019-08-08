@@ -33,7 +33,7 @@ import com.itextpdf.text.DocumentException;
 public final class BrissCMD {
 
 	private BrissCMD() {
-	};
+	}
 
 	public static void autoCrop(final String[] args) {
 
@@ -43,7 +43,7 @@ public final class BrissCMD {
 			return;
 
 		System.out.println("Clustering PDF: " + workDescription.getSourceFile());
-		ClusterDefinition clusterDefinition = null;
+		ClusterDefinition clusterDefinition;
 		try {
 			clusterDefinition = ClusterCreator.clusterPages(workDescription.getSourceFile(), null);
 		} catch (IOException e1) {
@@ -61,7 +61,7 @@ public final class BrissCMD {
 			System.out.print(".");
 			try {
 				Thread.sleep(500);
-			} catch (InterruptedException e) {
+			} catch (InterruptedException ignored) {
 			}
 		}
 		System.out.println("finished!");
@@ -98,11 +98,7 @@ public final class BrissCMD {
 			System.out.println("Starting to crop files.");
 			DocumentCropper.crop(cropDefintion);
 			System.out.println("Cropping succesful. Cropped to:" + workDescription.getDestFile().getAbsolutePath());
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (DocumentException e) {
+		} catch (IOException | DocumentException | IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (CropException e) {
 			System.out.println("Error while cropping:" + e.getMessage());

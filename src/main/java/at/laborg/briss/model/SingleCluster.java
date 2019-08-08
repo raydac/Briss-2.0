@@ -28,11 +28,11 @@ public class SingleCluster implements Comparable<SingleCluster> {
 
 	private List<Integer> pagesToMerge;
 	private List<Integer> allPages;
-	private final List<Float[]> cropRatiosList = new ArrayList<Float[]>();
+	private final List<Float[]> cropRatiosList = new ArrayList<>();
 
 	private ClusterImageData imageData;
 
-	private int excludedPageNumber = -1;
+	private int excludedPageNumber;
 	private final boolean evenPage;
 	private final int pageWidth;
 	private final int pageHeight;
@@ -43,7 +43,7 @@ public class SingleCluster implements Comparable<SingleCluster> {
 		this.pageHeight = pageHeight;
 		this.evenPage = isEvenPage;
 		this.excludedPageNumber = excludedPageNumber;
-		this.pagesToMerge = new ArrayList<Integer>();
+		this.pagesToMerge = new ArrayList<>();
 	}
 
 	public ClusterImageData getImageData() {
@@ -102,9 +102,7 @@ public class SingleCluster implements Comparable<SingleCluster> {
 			return false;
 		if (getRoundedPageHeight() != other.getRoundedPageHeight())
 			return false;
-		if (getRoundedPageWidth() != other.getRoundedPageWidth())
-			return false;
-		return true;
+		return getRoundedPageWidth() == other.getRoundedPageWidth();
 	}
 
 	public boolean isEvenPage() {
