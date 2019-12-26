@@ -218,7 +218,7 @@
                                 <configuration>
                                     <outfile>${project.build.directory}${file.separator}briss2.0.exe</outfile>
                                     <dontWrapJar>true</dontWrapJar>
-                                    <jar>.\briss2.0.jar</jar>
+                                    <jar>.\briss-2.0.jar</jar>
                                     <jre>
                                         <path>.\jre</path>
                                     </jre>
@@ -241,7 +241,9 @@
                                     <appendAssemblyId>false</appendAssemblyId>
                                     <finalName>${project.build.finalName}-linux-x64-openjdk</finalName>
                                     <descriptors>
-                                        <descriptor>src${file.separator}main${file.separator}assembly${file.separator}linux.xml</descriptor>
+                                        <descriptor>
+                                            src${file.separator}main${file.separator}assembly${file.separator}linux.xml
+                                        </descriptor>
                                     </descriptors>
                                 </configuration>
                             </execution>
@@ -255,7 +257,8 @@
                                     <appendAssemblyId>false</appendAssemblyId>
                                     <finalName>${project.build.finalName}-windows-x64-openjdk</finalName>
                                     <descriptors>
-                                        <descriptor>src${file.separator}main${file.separator}assembly${file.separator}windows.xml
+                                        <descriptor>
+                                            src${file.separator}main${file.separator}assembly${file.separator}windows.xml
                                         </descriptor>
                                     </descriptors>
                                 </configuration>
@@ -270,8 +273,53 @@
                                     <appendAssemblyId>false</appendAssemblyId>
                                     <finalName>${project.build.finalName}-macos-x64-openjdk</finalName>
                                     <descriptors>
-                                        <descriptor>src${file.separator}main${file.separator}assembly${file.separator}mac.xml</descriptor>
+                                        <descriptor>
+                                            src${file.separator}main${file.separator}assembly${file.separator}mac.xml
+                                        </descriptor>
                                     </descriptors>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>truezip-maven-plugin</artifactId>
+                        <version>1.2</version>
+                        <executions>
+                            <execution>
+                                <id>remove-manifest-from-mac-jar</id>
+                                <goals>
+                                    <goal>remove</goal>
+                                </goals>
+                                <phase>install</phase>
+                                <configuration>
+                                    <fileset>
+                                        <directory>
+                                            ${project.build.directory}${file.separator}${project.build.finalName}-macos-x64-openjdk.jar${file.separator}META-INF
+                                        </directory>
+                                    </fileset>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.coderplus.maven.plugins</groupId>
+                        <artifactId>copy-rename-maven-plugin</artifactId>
+                        <version>1.0.1</version>
+                        <executions>
+                            <execution>
+                                <id>rename-mac-jar-to-zip</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>rename</goal>
+                                </goals>
+                                <configuration>
+                                    <sourceFile>
+                                        ${project.build.directory}${file.separator}${project.build.finalName}-macos-x64-openjdk.jar
+                                    </sourceFile>
+                                    <destinationFile>
+                                        ${project.build.directory}${file.separator}${project.build.finalName}-macos-x64-openjdk.zip
+                                    </destinationFile>
                                 </configuration>
                             </execution>
                         </executions>

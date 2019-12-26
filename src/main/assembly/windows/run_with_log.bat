@@ -1,5 +1,5 @@
 set "BRISS_HOME=%cd%"
-set "LOG_FILE=%BRISS_HOME%/console.log"
+set "LOG_FILE=%BRISS_HOME%\console.log"
 
 rem uncomment the line below if graphics works slowly
 rem set JAVA_EXTRA_GFX_FLAGS="-Dsun.java2d.opengl=true"
@@ -16,4 +16,4 @@ echo ------JAVA_VERSION------ >> %LOG_FILE%
 
 echo ------------------------ >> %LOG_FILE%
 
-%JAVA_RUN% %JAVA_FLAGS% %JAVA_EXTRA_GFX_FLAGS% -jar %BRISS_HOME%/briss-2.0*.jar %* 2>> %LOG_FILE%
+"%BRIS_HOME%\jre\bin\%JAVA_RUN% %JAVA_FLAGS% %JAVA_EXTRA_GFX_FLAGS%" -jar "%BRISS_HOME%\briss-2.0.jar" %* 2>> %LOG_FILE%
